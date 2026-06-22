@@ -13,6 +13,7 @@ const SCHEDULE = [
 
 export default function Hours() {
   const [heroRef,  heroV]  = useReveal(0.01);
+  const [summaryRef, summaryV] = useReveal();
   const [schedRef, schedV] = useReveal();
   const [formRef,  formV]  = useReveal();
   const today = new Date().toLocaleDateString("en-IN", { weekday: "long" });
@@ -32,14 +33,14 @@ export default function Hours() {
       </section>
 
       {/* ── Session summary strip ── */}
-      <section style={{ background: C.green, padding: "0 48px" }}>
+      <section ref={summaryRef} style={{ background: C.green, padding: "0 48px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 0 }}>
           {[
             { icon: "🌅", label: "Morning Session", time: "9:30 AM – 1:30 PM",  note: "Mon–Sat" },
             { icon: "🌆", label: "Evening Session", time: "5:00 PM – 8:30 PM",  note: "Mon–Fri · Sat till 7PM" },
             { icon: "🧘", label: "Aerobics & Yoga", time: "6:00 AM – 7:30 AM",  note: "Mon–Sat" },
           ].map((s, i) => (
-            <div key={s.label} style={{ padding: "36px 32px", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.1)" : "none", textAlign: "center" }}>
+            <div key={s.label} style={{ padding: "36px 32px", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.1)" : "none", textAlign: "center", ...rv(summaryV, i * 0.15) }}>
               <div style={{ fontSize: "2.2rem", marginBottom: 14 }}>{s.icon}</div>
               <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 7 }}>{s.label}</div>
               <div style={{ color: "white", fontWeight: 800, fontSize: "1.1rem", marginBottom: 7 }}>{s.time}</div>
@@ -82,8 +83,8 @@ export default function Hours() {
 
       {/* ── Find Us + Booking form ── */}
       <section ref={formRef} style={{ padding: "72px 48px", background: C.mintLight }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "start", ...rv(formV) }}>
-          <div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "start" }}>
+          <div style={{ ...rv(formV, 0, "left") }}>
             <h2 style={{ fontSize: "clamp(1.7rem,3vw,2.3rem)", fontWeight: 800, color: C.text, marginBottom: 22 }}>Find Us</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {[
@@ -103,7 +104,7 @@ export default function Hours() {
             </div>
           </div>
 
-          <div>
+          <div style={{ ...rv(formV, 0.15, "right") }}>
             <h2 style={{ fontSize: "clamp(1.7rem,3vw,2.3rem)", fontWeight: 800, color: C.text, marginBottom: 22 }}>Book Your Visit</h2>
             <div style={{ background: C.white, borderRadius: 16, padding: "28px", border: `1px solid ${C.border}` }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 18 }}>

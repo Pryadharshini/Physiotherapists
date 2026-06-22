@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { C, NAV_LINKS } from "../theme";
 import logo from "../assets/logo.png";
+import { usePopup } from "../PopupContext";
 
 export default function Navbar() {
   const [hovered, setHovered] = useState(null);
   const location = useLocation();
   const path = location.pathname;
+  const { openPopup } = usePopup();
 
   return (
     <>
@@ -148,6 +150,7 @@ export default function Navbar() {
         {/* Buttons */}
         <div style={{ display: "flex", gap: 10 }}>
           <button
+            onClick={() => openPopup('callback')}
             style={{
               background: "transparent",
               border: `2px solid ${C.green}`,
@@ -164,6 +167,7 @@ export default function Navbar() {
           </button>
 
           <button
+            onClick={() => openPopup('appointment')}
             style={{
               background: C.green,
               color: "white",
