@@ -1,5 +1,37 @@
 import { C } from "../theme";
 import { useReveal, rv } from "../hooks";
+import { useState, useEffect } from "react";
+
+function AnimatedNumber({ value }) {
+  const [ref, visible] = useReveal(0.5);
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!visible) return;
+    const match = value.match(/([0-9,.]+)(.*)/);
+    if (!match) return;
+    
+    const num = parseFloat(match[1].replace(/,/g, ""));
+    const suffix = match[2];
+    let start = null;
+    const duration = 2000;
+
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setCurrent(Math.floor(easeProgress * num));
+      if (progress < 1) window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
+  }, [visible, value]);
+
+  const hasComma = value.includes(",");
+  const displayNum = hasComma ? current.toLocaleString() : current;
+  const suffix = value.match(/([0-9,.]+)(.*)/)?.[2] || "";
+
+  return <span ref={ref}>{displayNum}{suffix}</span>;
+}
 
 const TEAM = [
   { name: "Dr. Aravind Kumar",   role: "Senior Physiotherapist",   exp: "12 Years", spec: "Orthopaedic & Sports Rehab",    icon: "👨‍⚕️" },
@@ -23,7 +55,7 @@ export default function Aboutus() {
   return (
     <>
       {/* ── Hero ── */}
-      <section ref={heroRef} style={{ background: `linear-gradient(135deg,${C.green},${C.greenMid})`, padding: "96px 48px 76px", position: "relative", overflow: "hidden" }}>
+      <section ref={heroRef} style={{ background: `linear-gradient(rgba(10, 50, 30, 0.7), rgba(5, 35, 20, 0.85)), url('/hero-bg.png') center/cover no-repeat`, padding: "96px 48px 76px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", right: -60, top: -60, width: 380, height: 380, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
         <div style={{ position: "relative", zIndex: 1, maxWidth: 680, ...rv(heroV) }}>
           <div style={{ display: "inline-block", background: "rgba(255,255,255,0.14)", color: "white", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", padding: "5px 14px", borderRadius: 50, marginBottom: 18 }}>Our Story</div>
@@ -49,14 +81,14 @@ export default function Aboutus() {
               We integrate advanced technology with hands-on expertise to ensure measurable, lasting results — so our patients can return to the lives they love, faster.
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, ...rv(msnV, 0.15, "right") }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
             {[
               { icon: "🎯", title: "Precision Care",      desc: "Root-cause diagnosis before any treatment plan begins" },
               { icon: "💚", title: "Patient First",       desc: "Every decision centers on your recovery and comfort" },
               { icon: "🔬", title: "Science-Backed",      desc: "Treatments grounded in latest clinical research" },
               { icon: "📈", title: "Measurable Results",  desc: "Progress tracked at every milestone with data" },
-            ].map(v => (
-              <div key={v.title} style={{ background: C.mintLight, borderRadius: 14, padding: "22px 18px", border: `1px solid ${C.border}` }}>
+            ].map((v, i) => (
+              <div key={v.title} style={{ background: C.mintLight, borderRadius: 14, padding: "22px 18px", border: `1px solid ${C.border}`, ...rv(msnV, 0.15 + i * 0.1, "right") }}>
                 <div style={{ fontSize: "1.9rem", marginBottom: 10 }}>{v.icon}</div>
                 <div style={{ fontWeight: 700, fontSize: "0.92rem", color: C.text, marginBottom: 7 }}>{v.title}</div>
                 <div style={{ fontSize: "0.8rem", color: C.textLight, lineHeight: 1.6 }}>{v.desc}</div>
@@ -71,7 +103,7 @@ export default function Aboutus() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 0 }}>
           {[["15+","Years in Practice"],["5,000+","Patients Treated"],["98%","Satisfaction Rate"],["3","Clinic Locations"]].map(([v, l], i) => (
             <div key={l} style={{ textAlign: "center", borderRight: i < 3 ? "1px solid rgba(255,255,255,0.1)" : "none", padding: "0 18px" }}>
-              <div style={{ fontSize: "2.2rem", fontWeight: 800, color: "#86EFAC" }}>{v}</div>
+              <div style={{ fontSize: "2.2rem", fontWeight: 800, color: "#86EFAC" }}><AnimatedNumber value={v} /></div>
               <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", marginTop: 7, letterSpacing: "0.05em" }}>{l}</div>
             </div>
           ))}
@@ -86,7 +118,7 @@ export default function Aboutus() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 18 }}>
           {TEAM.map((m, i) => (
-            <div key={m.name} style={{ background: C.white, borderRadius: 16, padding: "28px 22px", textAlign: "center", boxShadow: "0 4px 18px rgba(0,0,0,0.06)", ...rv(teamV, i * 0.1) }}>
+            <div key={m.name} style={{ background: C.white, borderRadius: 16, padding: "28px 22px", textAlign: "center", boxShadow: "0 4px 18px rgba(0,0,0,0.06)", ...rv(teamV, 0.15 + i * 0.15, "zoom") }}>
               <div style={{ width: 76, height: 76, borderRadius: "50%", background: `linear-gradient(135deg,${C.green},${C.greenMid})`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", fontSize: "2.2rem" }}>{m.icon}</div>
               <div style={{ fontWeight: 700, fontSize: "0.96rem", color: C.text, marginBottom: 4 }}>{m.name}</div>
               <div style={{ fontSize: "0.78rem", color: C.greenMid, fontWeight: 600, marginBottom: 10 }}>{m.role}</div>
@@ -106,7 +138,7 @@ export default function Aboutus() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 14, maxWidth: 760, margin: "0 auto" }}>
           {AWARDS.map((a, i) => (
-            <div key={a.title} style={{ display: "flex", gap: 18, background: C.mintLight, borderRadius: 14, padding: "22px", border: `1px solid ${C.border}`, ...rv(awdV, i * 0.1) }}>
+            <div key={a.title} style={{ display: "flex", gap: 18, background: C.mintLight, borderRadius: 14, padding: "22px", border: `1px solid ${C.border}`, ...rv(awdV, Math.floor(i / 2) * 0.2, i % 2 === 0 ? "left" : "right") }}>
               <div style={{ width: 52, height: 52, background: C.green, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <span style={{ color: "#86EFAC", fontWeight: 800, fontSize: "0.85rem" }}>{a.year}</span>
               </div>

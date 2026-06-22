@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { C, NAV_LINKS } from "../theme";
+import { usePopup } from "../PopupContext";
 
 export default function Navbar() {
   const [hovered, setHovered] = useState(null);
   const location = useLocation();
   const path = location.pathname;
+  const { openPopup } = usePopup();
 
   return (
     <>
@@ -52,10 +54,10 @@ export default function Navbar() {
         </ul>
 
         <div style={{ display: "flex", gap: 10 }}>
-          <button style={{ background: "transparent", border: `2px solid ${C.green}`, color: C.green, padding: "9px 20px", borderRadius: 50, fontWeight: 600, fontSize: "0.82rem", cursor: "pointer", fontFamily: "inherit" }}>
+          <button onClick={() => openPopup('callback')} style={{ background: "transparent", border: `2px solid ${C.green}`, color: C.green, padding: "9px 20px", borderRadius: 50, fontWeight: 600, fontSize: "0.82rem", cursor: "pointer", fontFamily: "inherit" }}>
             Request Callback →
           </button>
-          <button style={{ background: C.green, color: "white", padding: "9px 20px", borderRadius: 50, fontWeight: 600, fontSize: "0.82rem", border: "none", cursor: "pointer", fontFamily: "inherit" }}>
+          <button onClick={() => openPopup('appointment')} style={{ background: C.green, color: "white", padding: "9px 20px", borderRadius: 50, fontWeight: 600, fontSize: "0.82rem", border: "none", cursor: "pointer", fontFamily: "inherit" }}>
             Book Appointment →
           </button>
         </div>

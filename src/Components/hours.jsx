@@ -20,7 +20,7 @@ export default function Hours() {
   return (
     <>
       {/* ── Hero ── */}
-      <section ref={heroRef} style={{ background: `linear-gradient(135deg,${C.green},${C.greenMid})`, padding: "96px 48px 76px", position: "relative", overflow: "hidden" }}>
+      <section ref={heroRef} style={{ background: `linear-gradient(rgba(10, 50, 30, 0.7), rgba(5, 35, 20, 0.85)), url('/hours-hero.png') center/cover no-repeat`, padding: "180px 48px 160px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", right: -60, top: -60, width: 380, height: 380, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
         <div style={{ position: "relative", zIndex: 1, ...rv(heroV) }}>
           <div style={{ display: "inline-block", background: "rgba(255,255,255,0.14)", color: "white", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", padding: "5px 14px", borderRadius: 50, marginBottom: 18 }}>When We're Open</div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { C } from "../theme";
 import { useReveal, rv } from "../hooks";
+import { usePopup } from "../PopupContext";
 
 const FAQ_DATA = [
   { q: "Do I need a doctor's referral to visit?",   a: "No, you can walk in or book directly. However, if you have a referral letter or medical reports, please bring them along as they help our physiotherapists design a more accurate treatment plan." },
@@ -13,7 +14,9 @@ const FAQ_DATA = [
 ];
 
 export default function Patientinfo() {
+  const { openPopup } = usePopup();
   const [heroRef, heroV] = useReveal(0.01);
+  const [firstRef, firstV] = useReveal();
   const [prepRef, prepV] = useReveal();
   const [faqRef,  faqV]  = useReveal();
   const [open, setOpen]  = useState(null);
@@ -21,7 +24,7 @@ export default function Patientinfo() {
   return (
     <>
       {/* ── Hero ── */}
-      <section ref={heroRef} style={{ background: `linear-gradient(135deg,${C.green},${C.greenMid})`, padding: "96px 48px 76px", position: "relative", overflow: "hidden" }}>
+      <section ref={heroRef} style={{ background: `linear-gradient(rgba(10, 50, 30, 0.7), rgba(5, 35, 20, 0.85)), url('/patient-info-hero.png') center/cover no-repeat`, padding: "180px 48px 160px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", right: -60, top: -60, width: 380, height: 380, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
         <div style={{ position: "relative", zIndex: 1, ...rv(heroV) }}>
           <div style={{ display: "inline-block", background: "rgba(255,255,255,0.14)", color: "white", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", padding: "5px 14px", borderRadius: 50, marginBottom: 18 }}>For Our Patients</div>
@@ -33,8 +36,8 @@ export default function Patientinfo() {
       </section>
 
       {/* ── First visit steps ── */}
-      <section style={{ padding: "80px 48px", background: C.white }}>
-        <div style={{ textAlign: "center", marginBottom: 52 }}>
+      <section ref={firstRef} style={{ padding: "80px 48px", background: C.white }}>
+        <div style={{ textAlign: "center", marginBottom: 52, ...rv(firstV) }}>
           <h2 style={{ fontSize: "clamp(1.7rem,3vw,2.3rem)", fontWeight: 800, color: C.text, marginBottom: 10 }}>Your First Visit</h2>
           <p style={{ color: C.textLight, maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>We've made the process as simple and comfortable as possible.</p>
         </div>
@@ -44,8 +47,8 @@ export default function Patientinfo() {
             { step: "02", icon: "🔍", title: "Assessment", desc: "Your physiotherapist performs a comprehensive root-cause evaluation." },
             { step: "03", icon: "📋", title: "Plan",       desc: "Receive a personalized treatment plan with clear goals and milestones." },
             { step: "04", icon: "💪", title: "Begin Care", desc: "Start your first treatment session immediately, or schedule it." },
-          ].map(s => (
-            <div key={s.step} style={{ textAlign: "center", padding: "0 10px" }}>
+          ].map((s, i) => (
+            <div key={s.step} style={{ textAlign: "center", padding: "0 10px", ...rv(firstV, i * 0.1) }}>
               <div style={{ fontSize: "0.7rem", fontWeight: 800, color: C.textLight, letterSpacing: "0.2em", marginBottom: 14 }}>{s.step}</div>
               <div style={{ width: 68, height: 68, borderRadius: "50%", background: C.green, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 14px", fontSize: "1.7rem" }}>{s.icon}</div>
               <div style={{ fontWeight: 700, fontSize: "0.96rem", color: C.text, marginBottom: 7 }}>{s.title}</div>
@@ -57,8 +60,8 @@ export default function Patientinfo() {
 
       {/* ── What to bring + Patient rights ── */}
       <section ref={prepRef} style={{ padding: "72px 48px", background: C.mintLight }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "start", ...rv(prepV) }}>
-          <div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "start" }}>
+          <div style={{ ...rv(prepV, 0, "left") }}>
             <h2 style={{ fontSize: "clamp(1.7rem,3vw,2.3rem)", fontWeight: 800, color: C.text, marginBottom: 10 }}>What to Bring</h2>
             <p style={{ color: C.textLight, lineHeight: 1.7, marginBottom: 28 }}>Having these ready ensures your first session is as productive as possible.</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -78,7 +81,7 @@ export default function Patientinfo() {
             </div>
           </div>
 
-          <div>
+          <div style={{ ...rv(prepV, 0.15, "right") }}>
             <h2 style={{ fontSize: "clamp(1.7rem,3vw,2.3rem)", fontWeight: 800, color: C.text, marginBottom: 10 }}>Patient Rights</h2>
             <p style={{ color: C.textLight, lineHeight: 1.7, marginBottom: 28 }}>As our patient, you are entitled to the following at all times.</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -140,7 +143,7 @@ export default function Patientinfo() {
             <div style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#86EFAC", marginBottom: 7 }}>WhatsApp Support</div>
             <div style={{ color: "white", fontWeight: 800, fontSize: "1.35rem" }}>88706 16184</div>
           </div>
-          <button style={{ background: "white", color: C.green, padding: "14px 32px", borderRadius: 50, fontWeight: 700, fontSize: "0.92rem", border: "none", cursor: "pointer", fontFamily: "inherit" }}>
+          <button onClick={() => openPopup('appointment')} style={{ background: "white", color: C.green, padding: "14px 32px", borderRadius: 50, fontWeight: 700, fontSize: "0.92rem", border: "none", cursor: "pointer", fontFamily: "inherit" }}>
             Book Appointment →
           </button>
         </div>

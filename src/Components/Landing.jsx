@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { C } from "../theme";
 import { useReveal, rv } from "../hooks";
+import { usePopup } from "../PopupContext";
 import heroVideo from "../assets/Hero.mp4";
 
 /* ── Shared sub-components ── */
@@ -56,6 +57,7 @@ const TESTIMONIALS = [
 ];
 
 export default function Landing() {
+  const { openPopup } = usePopup();
   const [hov, setHov] = useState(null);
   const [heroRef,  heroV]  = useReveal(0.01);
   const [servRef,  servV]  = useReveal();
@@ -202,6 +204,7 @@ export default function Landing() {
 
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center" }}>
             <button
+              onClick={() => openPopup('callback')}
               style={{
                 background: C.greenLight,
                 color: "white",
@@ -217,6 +220,7 @@ export default function Landing() {
               Request Callback →
             </button>
             <button
+              onClick={() => openPopup('appointment')}
               style={{
                 background: "white",
                 color: C.green,
@@ -420,8 +424,8 @@ export default function Landing() {
           <h2 style={{ fontSize: "clamp(1.8rem,4vw,2.8rem)", fontWeight: 800, color: "white", marginBottom: 14, lineHeight: 1.2 }}>Your Pain Has a Solution.<br />Let's Find It Together.</h2>
           <p style={{ color: "rgba(255,255,255,0.68)", maxWidth: 500, margin: "0 auto 36px", lineHeight: 1.75 }}>Walk in or book ahead. Our team is ready to assess, treat, and restore you to full function.</p>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-            <button style={{ background: "white", color: C.green, padding: "15px 34px", borderRadius: 50, fontWeight: 700, fontSize: "0.92rem", border: "none", cursor: "pointer", fontFamily: "inherit" }}>Book Appointment →</button>
-            <button style={{ background: "transparent", color: "white", padding: "15px 34px", borderRadius: 50, fontWeight: 700, fontSize: "0.92rem", border: "2px solid rgba(255,255,255,0.38)", cursor: "pointer", fontFamily: "inherit" }}>Call Us: 04562-244228</button>
+            <button onClick={() => openPopup('appointment')} style={{ background: "white", color: C.green, padding: "15px 34px", borderRadius: 50, fontWeight: 700, fontSize: "0.92rem", border: "none", cursor: "pointer", fontFamily: "inherit" }}>Book Appointment →</button>
+            <button onClick={() => openPopup('callback')} style={{ background: "transparent", color: "white", padding: "15px 34px", borderRadius: 50, fontWeight: 700, fontSize: "0.92rem", border: "2px solid rgba(255,255,255,0.38)", cursor: "pointer", fontFamily: "inherit" }}>Request Callback →</button>
           </div>
         </div>
       </section>
