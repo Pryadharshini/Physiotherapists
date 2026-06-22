@@ -167,12 +167,9 @@ export default function Navbar() {
         {/* Buttons */}
         <div style={{ display: "flex", gap: 10 }}>
           <button
-<<<<<<< HEAD
             onClick={() => openPopup('callback')}
-=======
             onMouseEnter={() => setBtnHov("outline")}
             onMouseLeave={() => setBtnHov(null)}
->>>>>>> 149f9eb (My local changes)
             style={{
               background: btnHov === "outline" ? C.green : "transparent",
               border: `2px solid ${C.green}`,
@@ -191,12 +188,9 @@ export default function Navbar() {
           </button>
 
           <button
-<<<<<<< HEAD
             onClick={() => openPopup('appointment')}
-=======
             onMouseEnter={() => setBtnHov("solid")}
             onMouseLeave={() => setBtnHov(null)}
->>>>>>> 149f9eb (My local changes)
             style={{
               background: C.green,
               color: "white",
