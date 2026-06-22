@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { C } from "../theme";
 import { useReveal, rv } from "../hooks";
+import heroVideo from "../assets/Hero.mp4";
 
 /* ── Shared sub-components ── */
 function Stars({ count }) {
@@ -67,212 +68,199 @@ export default function Landing() {
   return (
     <>
       {/* ── Hero ── */}
-    {/* ── Hero ── */}
-<section
-  ref={heroRef}
-  style={{
-    position: "relative",
-    minHeight: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-  }}
->
-  <div
-    style={{
-      position: "absolute",
-      inset: 0,
-      background: `linear-gradient(180deg,${C.green} 0%,${C.greenMid} 40%,${C.greenLight} 100%)`,
-      zIndex: 0,
-    }}
-  />
-
-  <div
-    style={{
-      position: "absolute",
-      right: "-5%",
-      top: "10%",
-      width: 480,
-      height: 480,
-      borderRadius: "50%",
-      background: "rgba(255,255,255,0.04)",
-      zIndex: 1,
-    }}
-  />
-
-  <div
-    style={{
-      position: "absolute",
-      right: "5%",
-      top: "22%",
-      width: 320,
-      height: 320,
-      borderRadius: "50%",
-      background: "rgba(255,255,255,0.06)",
-      zIndex: 1,
-    }}
-  />
-
-  <div
-    style={{
-      position: "relative",
-      zIndex: 2,
-      maxWidth: 1000,
-      width: "100%",
-      padding: "0 48px",
-      margin: "0 auto",
-      textAlign: "center",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      ...rv(heroV),
-    }}
-  >
-    <div
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        background: "rgba(255,255,255,0.14)",
-        backdropFilter: "blur(8px)",
-        padding: "7px 18px",
-        borderRadius: 50,
-        marginTop: 10, 
-        marginBottom: 26,
-        border: "1px solid rgba(255,255,255,0.2)",
-      }}
-    >
-      <Stars count={5} />
-      <span
+      <section
+        ref={heroRef}
         style={{
-          color: "white",
-          fontSize: "0.83rem",
-          fontWeight: 600,
+          position: "relative",
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "hidden",
         }}
       >
-        4.9 (264 Reviews)
-      </span>
-    </div>
+        {/* ── Video Background ── */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+            filter: "blur(3px) brightness(0.45)",
+            transform: "scale(1.05)",
+          }}
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
 
-    <h1
-      style={{
-        fontSize: "clamp(2.8rem,6vw,5rem)",
-        fontWeight: 800,
-        color: "white",
-        lineHeight: 1.1,
-        marginBottom: 24,
-      }}
-    >
-      Virudhunagar's Best
-      <br />
-      <span style={{ color: "#86EFAC" }}>
-        Physiotherapists
-      </span>
-      <br />
-      Near You
-    </h1>
+        {/* ── Green overlay to restore brand color ── */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `linear-gradient(180deg, rgba(26,74,58,0.55) 0%, rgba(26,74,58,0.72) 100%)`,
+            zIndex: 1,
+          }}
+        />
 
-    <p
-      style={{
-        fontSize: "1.1rem",
-        color: "rgba(255,255,255,0.78)",
-        lineHeight: 1.8,
-        maxWidth: 700,
-        marginBottom: 40,
-      }}
-    >
-      Advanced Physiotherapy Centre with Hi-Tech Therapies &
-      Certified Physiotherapists for Precision Recovery.
-    </p>
+        {/* ── Decorative circles ── */}
+        <div
+          style={{
+            position: "absolute",
+            right: "-5%",
+            top: "10%",
+            width: 480,
+            height: 480,
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.04)",
+            zIndex: 2,
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            right: "5%",
+            top: "22%",
+            width: 320,
+            height: 320,
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.06)",
+            zIndex: 2,
+          }}
+        />
 
-    <div
-      style={{
-        display: "flex",
-        gap: 14,
-        flexWrap: "wrap",
-        justifyContent: "center",
-      }}
-    >
-      <button
-        style={{
-          background: C.greenLight,
-          color: "white",
-          padding: "14px 30px",
-          borderRadius: 50,
-          fontWeight: 700,
-          fontSize: "0.92rem",
-          border: "none",
-          cursor: "pointer",
-          fontFamily: "inherit",
-        }}
-      >
-        Request Callback →
-      </button>
-
-      <button
-        style={{
-          background: "white",
-          color: C.green,
-          padding: "14px 30px",
-          borderRadius: 50,
-          fontWeight: 700,
-          fontSize: "0.92rem",
-          border: "none",
-          cursor: "pointer",
-          fontFamily: "inherit",
-        }}
-      >
-        Book Appointment →
-      </button>
-    </div>
-
-   <div
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    gap: 50,
-    flexWrap: "wrap",
-    marginTop: 40,
-    paddingTop: 25,
-    borderTop: "1px solid rgba(255,255,255,0.14)",
-    width: "100%",
-    maxWidth: 850,
-    marginBottom: 40, // add this
-  }}
->
-      {[
-        ["15+", "Years Experience"],
-        ["5,000+", "Patients Healed"],
-        ["4", "Core Services"],
-        ["9:30AM", "Opens Daily"],
-      ].map(([v, l]) => (
-        <div key={l}>
+        {/* ── Hero Content ── */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 3,
+            maxWidth: 1000,
+            width: "100%",
+            padding: "0 48px",
+            margin: "0 auto",
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            ...rv(heroV),
+          }}
+        >
           <div
             style={{
-              fontSize: "1.9rem",
-              fontWeight: 800,
-              color: "#86EFAC",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              background: "rgba(255,255,255,0.14)",
+              backdropFilter: "blur(8px)",
+              padding: "7px 18px",
+              borderRadius: 50,
+              marginTop: 10,
+              marginBottom: 26,
+              border: "1px solid rgba(255,255,255,0.2)",
             }}
           >
-            {v}
+            <Stars count={5} />
+            <span style={{ color: "white", fontSize: "0.83rem", fontWeight: 600 }}>
+              4.9 (264 Reviews)
+            </span>
+          </div>
+
+          <h1
+            style={{
+              fontSize: "clamp(2.8rem,6vw,5rem)",
+              fontWeight: 800,
+              color: "white",
+              lineHeight: 1.1,
+              marginBottom: 24,
+            }}
+          >
+            Virudhunagar's Best
+            <br />
+            <span style={{ color: "#86EFAC" }}>Physiotherapists</span>
+            <br />
+            Near You
+          </h1>
+
+          <p
+            style={{
+              fontSize: "1.1rem",
+              color: "rgba(255,255,255,0.78)",
+              lineHeight: 1.8,
+              maxWidth: 700,
+              marginBottom: 40,
+            }}
+          >
+            Advanced Physiotherapy Centre with Hi-Tech Therapies &
+            Certified Physiotherapists for Precision Recovery.
+          </p>
+
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center" }}>
+            <button
+              style={{
+                background: C.greenLight,
+                color: "white",
+                padding: "14px 30px",
+                borderRadius: 50,
+                fontWeight: 700,
+                fontSize: "0.92rem",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              Request Callback →
+            </button>
+            <button
+              style={{
+                background: "white",
+                color: C.green,
+                padding: "14px 30px",
+                borderRadius: 50,
+                fontWeight: 700,
+                fontSize: "0.92rem",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              Book Appointment →
+            </button>
           </div>
 
           <div
             style={{
-              fontSize: "0.75rem",
-              color: "rgba(255,255,255,0.55)",
-              marginTop: 3,
-              letterSpacing: "0.05em",
+              display: "flex",
+              justifyContent: "center",
+              gap: 50,
+              flexWrap: "wrap",
+              marginTop: 40,
+              paddingTop: 25,
+              borderTop: "1px solid rgba(255,255,255,0.14)",
+              width: "100%",
+              maxWidth: 850,
+              marginBottom: 40,
             }}
           >
-            {l}
+            {[
+              ["15+", "Years Experience"],
+              ["5,000+", "Patients Healed"],
+              ["4", "Core Services"],
+              ["9:30AM", "Opens Daily"],
+            ].map(([v, l]) => (
+              <div key={l}>
+                <div style={{ fontSize: "1.9rem", fontWeight: 800, color: "#86EFAC" }}>{v}</div>
+                <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.55)", marginTop: 3, letterSpacing: "0.05em" }}>{l}</div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* ── Service strips ── */}
       <section ref={servRef} style={{ background: C.green, padding: "44px 48px" }}>
