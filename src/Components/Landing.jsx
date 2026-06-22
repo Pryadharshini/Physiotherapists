@@ -111,31 +111,6 @@ export default function Landing() {
           }}
         />
 
-        {/* ── Decorative circles ── */}
-        <div
-          style={{
-            position: "absolute",
-            right: "-5%",
-            top: "10%",
-            width: 480,
-            height: 480,
-            borderRadius: "50%",
-            background: "rgba(255,255,255,0.04)",
-            zIndex: 2,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: "5%",
-            top: "22%",
-            width: 320,
-            height: 320,
-            borderRadius: "50%",
-            background: "rgba(255,255,255,0.06)",
-            zIndex: 2,
-          }}
-        />
 
         {/* ── Hero Content ── */}
         <div
