@@ -6,6 +6,7 @@ import { usePopup } from "../PopupContext";
 
 export default function Navbar() {
   const [hovered, setHovered] = useState(null);
+  const [btnHov, setBtnHov] = useState(null);
   const location = useLocation();
   const path = location.pathname;
   const { openPopup } = usePopup();
@@ -23,10 +24,10 @@ export default function Navbar() {
         }}
       >
         <div style={{ display: "flex", gap: 28 }}>
-          <span style={{ color: "white", fontSize: "0.8rem" }}>
+          <span style={{ color: "white", fontSize: "0.88rem" }}>
             📞 04562-244228
           </span>
-          <span style={{ color: "white", fontSize: "0.8rem" }}>
+          <span style={{ color: "white", fontSize: "0.88rem" }}>
             💬 88706 16184
           </span>
         </div>
@@ -37,8 +38,18 @@ export default function Navbar() {
               key={icon}
               style={{
                 color: "rgba(255,255,255,0.75)",
-                fontSize: "0.88rem",
+                fontSize: "0.95rem",
                 cursor: "pointer",
+                transition: "color 0.2s, transform 0.2s",
+                display: "inline-block",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "white";
+                e.currentTarget.style.transform = "translateY(-2px) scale(1.15)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "rgba(255,255,255,0.75)";
+                e.currentTarget.style.transform = "translateY(0) scale(1)";
               }}
             >
               {icon}
@@ -51,7 +62,7 @@ export default function Navbar() {
       <nav
         style={{
           background: C.white,
-          padding: "14px 48px",
+          padding: "1px 38px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -67,7 +78,7 @@ export default function Navbar() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 12,
+            gap: 6,
             textDecoration: "none",
           }}
         >
@@ -75,18 +86,21 @@ export default function Navbar() {
             src={logo}
             alt="Shree Ohm Physiotherapy"
             style={{
-              width: 70,
-              height: 70,
+              width: 90,
+              height: 90,
               objectFit: "contain",
+              transition: "transform 0.3s ease",
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "rotate(-4deg) scale(1.05)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "rotate(0deg) scale(1)")}
           />
 
           <div>
             <div
               style={{
-                fontWeight: 800,
-                fontSize: "1.05rem",
-                color: C.green,
+                fontWeight: 1500,
+                fontSize: "1.09rem",
+                color: C.text,
                 letterSpacing: "0.02em",
               }}
             >
@@ -95,8 +109,9 @@ export default function Navbar() {
 
             <div
               style={{
-                fontSize: "0.62rem",
-                color: C.textLight,
+                fontSize: "0.8rem",
+                fontWeight: 1500,
+                color: C.green,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
               }}
@@ -130,14 +145,16 @@ export default function Navbar() {
                       active || hovered === link.label
                         ? C.green
                         : C.textMid,
-                    fontSize: "0.88rem",
+                    fontSize: "0.92rem",
                     fontWeight: active ? 700 : 500,
                     textDecoration: "none",
                     borderBottom: active
                       ? `2px solid ${C.green}`
                       : "2px solid transparent",
                     paddingBottom: 3,
-                    transition: "all 0.2s",
+                    transition: "color 0.2s, border-color 0.2s, transform 0.2s",
+                    display: "inline-block",
+                    transform: hovered === link.label ? "translateY(-2px)" : "translateY(0)",
                   }}
                 >
                   {link.label}
@@ -150,34 +167,49 @@ export default function Navbar() {
         {/* Buttons */}
         <div style={{ display: "flex", gap: 10 }}>
           <button
+<<<<<<< HEAD
             onClick={() => openPopup('callback')}
+=======
+            onMouseEnter={() => setBtnHov("outline")}
+            onMouseLeave={() => setBtnHov(null)}
+>>>>>>> 149f9eb (My local changes)
             style={{
-              background: "transparent",
+              background: btnHov === "outline" ? C.green : "transparent",
               border: `2px solid ${C.green}`,
-              color: C.green,
+              color: btnHov === "outline" ? "white" : C.green,
               padding: "9px 20px",
               borderRadius: 50,
               fontWeight: 600,
-              fontSize: "0.82rem",
+              fontSize: "0.86rem",
               cursor: "pointer",
               fontFamily: "inherit",
+              transition: "background 0.25s, color 0.25s, transform 0.25s",
+              transform: btnHov === "outline" ? "translateY(-2px)" : "translateY(0)",
             }}
           >
             Request Callback →
           </button>
 
           <button
+<<<<<<< HEAD
             onClick={() => openPopup('appointment')}
+=======
+            onMouseEnter={() => setBtnHov("solid")}
+            onMouseLeave={() => setBtnHov(null)}
+>>>>>>> 149f9eb (My local changes)
             style={{
               background: C.green,
               color: "white",
               padding: "9px 20px",
               borderRadius: 50,
               fontWeight: 600,
-              fontSize: "0.82rem",
+              fontSize: "0.86rem",
               border: "none",
               cursor: "pointer",
               fontFamily: "inherit",
+              transition: "transform 0.25s, box-shadow 0.25s",
+              transform: btnHov === "solid" ? "translateY(-2px)" : "translateY(0)",
+              boxShadow: btnHov === "solid" ? "0 8px 20px rgba(26,74,58,0.35)" : "none",
             }}
           >
             Book Appointment →

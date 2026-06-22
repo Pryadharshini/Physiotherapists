@@ -3,6 +3,7 @@ import { C } from "../theme";
 import { useReveal, rv } from "../hooks";
 import { usePopup } from "../PopupContext";
 import heroVideo from "../assets/Hero.mp4";
+import ph from "../assets/ph.jpg";
 
 /* ── Shared sub-components ── */
 function Stars({ count }) {
@@ -264,13 +265,13 @@ export default function Landing() {
       <section ref={procRef} style={{ padding: "88px 48px", background: C.white }}>
         <div style={{ textAlign: "center", marginBottom: 60, ...rv(procV) }}>
           <h2 style={{ fontSize: "clamp(1.8rem,3.5vw,2.6rem)", fontWeight: 800, color: C.text, marginBottom: 14 }}>AI Precision Recovery</h2>
-          <p style={{ color: C.textLight, maxWidth: 580, margin: "0 auto", lineHeight: 1.7 }}>Our scientifically backed 4-step process ensures you receive the most effective, personalised physiotherapy treatment.</p>
+          <p style={{ color: C.green, maxWidth: 580, margin: "0 auto", lineHeight: 1.7 }}>Our scientifically backed 4-step process ensures you receive the most effective, personalised physiotherapy treatment.</p>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 0, position: "relative" }}>
           {[0, 1, 2].map(i => (
             <div key={i} style={{ position: "absolute", top: "20%", left: `${25 * (i + 1) - 2}%`, width: "4%", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ borderTop: `2px dashed ${C.border}`, width: "100%", position: "relative" }}>
-                <span style={{ position: "absolute", right: -8, top: -10, color: C.greenMid, fontSize: "1rem" }}>→</span>
+                <span style={{ position: "absolute", right: -8, top: -10, color: C.green, fontSize: "1rem" }}>→</span>
               </div>
             </div>
           ))}
@@ -278,9 +279,9 @@ export default function Landing() {
             <div key={p.step} style={{ textAlign: "center", padding: "0 22px", ...rv(procV, i * 0.12) }}>
               <div style={{ width: 84, height: 84, borderRadius: "50%", background: C.green, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px", fontSize: "1.9rem", boxShadow: "0 8px 24px rgba(26,74,58,0.24)" }}>{p.icon}</div>
               <div style={{ fontWeight: 800, fontSize: "0.9rem", color: C.text, letterSpacing: "0.05em" }}>{p.step}</div>
-              <div style={{ fontWeight: 700, fontSize: "0.82rem", color: C.greenMid, marginBottom: 14, letterSpacing: "0.03em" }}>{p.sub}</div>
-              <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.textLight, marginBottom: 7 }}>{p.label}</div>
-              <p style={{ fontSize: "0.8rem", color: C.textLight, lineHeight: 1.7 }}>{p.desc}</p>
+              <div style={{ fontWeight: 700, fontSize: "0.82rem", color: C.green, marginBottom: 14, letterSpacing: "0.03em" }}>{p.sub}</div>
+              <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.text, marginBottom: 7 }}>{p.label}</div>
+              <p style={{ fontSize: "0.8rem", color: C.text, lineHeight: 1.7 }}>{p.desc}</p>
             </div>
           ))}
         </div>
@@ -290,10 +291,29 @@ export default function Landing() {
       <section ref={aboutRef} style={{ padding: "88px 48px", background: C.mintLight }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
           <div style={{ position: "relative", ...rv(aboutV, 0, "left") }}>
-            <div style={{ borderRadius: 20, overflow: "hidden", background: `linear-gradient(135deg,${C.green},${C.greenMid})`, height: 400, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ textAlign: "center", padding: 40 }}>
-                <div style={{ fontSize: "5.5rem", marginBottom: 14 }}>🧘‍♀️</div>
-                <div style={{ color: "white", fontWeight: 700, fontSize: "1.05rem", letterSpacing: "0.05em" }}>Physical Therapy</div>
+           <div
+  style={{
+    borderRadius: 20,
+    overflow: "hidden",
+    background: `linear-gradient(135deg,${C.green},${C.greenMid})`,
+    height: 400,
+  }}
+>
+              <div style={{ textAlign: "center", padding: 20 }}>
+                <div style={{ textAlign: "center", padding: 20 }}>
+ <img
+    src={ph}
+    alt="Physical Therapy"
+    style={{
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      display: "block",
+    }}
+  />
+
+  
+</div>
                 <div style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.83rem", marginTop: 7 }}>Expert hands-on care</div>
               </div>
             </div>
